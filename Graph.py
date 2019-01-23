@@ -56,3 +56,6 @@ class Graph:
     def print_all_vertices(self):
         for vertex in self:
             print(vertex)
+
+    # all the serach methods
+
