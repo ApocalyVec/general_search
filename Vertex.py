@@ -17,6 +17,15 @@ class Vertex:
         return 'id: ' + str(self.id) + ' Heuristic: ' + str(self.heuristic) +\
                ' Connections: ' + str([x.id for x in self.connection])
 
+    def __gt__(self, other):
+        return self.id > self.id
+
+    # def __getitem__(self, index):
+    #     return self.id[index]
+
+    # def __setitem__(self, index, value):
+    #     self.bricks.bricksId[index] = value
+
     def get_id(self):
         return self.id
 

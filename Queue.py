@@ -16,9 +16,14 @@ class Queue:
         return len(self.elements) == 0
 
     def push(self, x):
-        self.elements.append(x)
+        self.elements.appendleft(x)
 
     def pop(self):
         return self.elements.popleft()
+
+    def state(self): # return the first node in the queue if it is not empty
+        if self.elements: # check if the queue is empty
+            return self.elements[0][0]
+
 
 

@@ -1,25 +1,51 @@
 import os
 
 from Graph import Graph
-from Vertex import Vertex
 from Queue import Queue
+from Expand import dfs_expand
 
-# def dfs_expand()
 
 def general_search(graph, search_method):
-    if search_method == 'BFS':
-        print("Running BFS")
-        queue = Queue()
-        # queue.push([Vertex('s')])
-        # queue.push([Vertex('g'), Vertex('d')])
-        # print(queue)
-        while 1:
-            if queue.empty():
-                print("No solution, terminated")
-                return
+    print("Running: " + search_method)
+    queue = Queue()
+    root = g.get_vertex('S')
+    destination = g.get_vertex('G')
 
-            visiting_node = queue.pop()
+    queue.push([root])
+    print(queue)
 
+    #
+    # queue.push([Vertex('g'), Vertex('d')])
+    # print(queue)
+    # print(queue.state())
+
+    visited = []
+
+    while 1:
+        if queue.empty():
+            print("No solution, terminated")
+            return
+
+        nodes = queue.pop()  # the first node when popping the queue is the current node
+
+        if nodes[0] == destination:
+            return nodes[0]
+
+        # sort nodes by its ID alphabetically
+        # print("before sorting")
+        # for n in nodes:
+        #     print(n.id)
+        #
+        # nodes.sort()
+        #
+        # print("after sorting")
+        # for n in nodes:
+        #     print(n.id)
+
+        # use the given search method
+        if search_method == 'DFS':
+            dfs_expand(nodes, graph, queue, visited)
+            print(queue)
 
 
 filePath = str(input("Please enter a file path... Then press enter... "
@@ -52,7 +78,7 @@ print("Graph read from file: ")
 g.print_all_vertices()
 input("Press Enter to continue...")
 
-general_search(g, 'BFS')
+general_search(g, 'DFS')
 
 # g.add_vertex('a')
 # g.add_edge('a', 'b', 7)
