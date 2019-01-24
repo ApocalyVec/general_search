@@ -1,14 +1,18 @@
 import os
+import time
+
 
 from Graph import Graph
 from Queue import Queue
-from Expand import dfs_expand
+from Expand import dfs_expand, bfs_expand
 
 
 def general_search(graph, search_method):
 
+    start = time.time()
+
     print("Running: " + search_method)
-    print("Expanded     Queue")
+    print("     Expanded     Queue")
     queue = Queue()
     root = g.get_vertex('S')
     destination = g.get_vertex('G')
@@ -28,10 +32,7 @@ def general_search(graph, search_method):
             print("No solution, terminated")
             return
 
-        nodes = queue.pop()  # the first node when popping the queue is the current node
-
-        if nodes[0] == destination:
-            return nodes[0]
+        nodes = queue.get_left_peek()  # get the left peek without popping
 
         # sort nodes by its ID alphabetically
         # print("before sorting")
@@ -45,10 +46,22 @@ def general_search(graph, search_method):
         #     print(n.id)
 
         # use the given search method
+        # DFS
         if search_method == 'DFS':
-            dfs_expand(nodes, graph, queue, visited)
-            print(nodes[0].id, end='    ')
+            print('     ' + nodes[0].id, end='              ')
             print(queue)
+            dfs_expand(graph, queue, visited)
+        # BFS
+        elif search_method == 'BFS':
+            print('     ' + nodes[0].id, end='              ')
+            print(queue)
+            bfs_expand(graph, queue, visited)
+
+        if nodes[0] == destination:
+            end = time.time()
+            print("     goal reached! " + "Time taken by " + search_method + " is       ", end - start, "seconds")
+
+            return nodes[0]
 
 
 filePath = str(input("Please enter a file path... Then press enter... "
@@ -81,7 +94,10 @@ print("Graph read from file: ")
 g.print_all_vertices()
 input("Press Enter to continue...")
 
+
 general_search(g, 'DFS')
+general_search(g, 'BFS')
+
 
 # g.add_vertex('a')
 # g.add_edge('a', 'b', 7)

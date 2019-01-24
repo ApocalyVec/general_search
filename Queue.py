@@ -18,6 +18,9 @@ class Queue:
     def push(self, x):
         self.elements.appendleft(x)
 
+    def push_right(self, x):
+        self.elements.append(x)
+
     def pop(self):
         return self.elements.popleft()
 
@@ -25,5 +28,10 @@ class Queue:
         if self.elements: # check if the queue is empty
             return self.elements[0][0]
 
+    def get_left_peek(self):
+        return self.elements[0]
+
+    def get_right_peek(self):
+        return self.elements[-1]
 
 
