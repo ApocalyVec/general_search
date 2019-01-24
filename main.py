@@ -6,13 +6,15 @@ from Expand import dfs_expand
 
 
 def general_search(graph, search_method):
+
     print("Running: " + search_method)
+    print("Expanded     Queue")
     queue = Queue()
     root = g.get_vertex('S')
     destination = g.get_vertex('G')
 
     queue.push([root])
-    print(queue)
+    # print(queue)
 
     #
     # queue.push([Vertex('g'), Vertex('d')])
@@ -45,6 +47,7 @@ def general_search(graph, search_method):
         # use the given search method
         if search_method == 'DFS':
             dfs_expand(nodes, graph, queue, visited)
+            print(nodes[0].id, end='    ')
             print(queue)
 
 
