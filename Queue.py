@@ -12,7 +12,7 @@ class Queue:
         return str([str([i.id for i in x]).replace("[", "<").replace("]", ">").replace("'", "")
                     for x in self.elements]).replace("'", "")
 
-    def empty(self):
+    def isEmpty(self):
         return len(self.elements) == 0
 
     def push(self, x):
@@ -33,5 +33,3 @@ class Queue:
 
     def get_right_peek(self):
         return self.elements[-1]
-
-
