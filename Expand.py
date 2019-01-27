@@ -93,6 +93,7 @@ def ucs_expand(heap):
             new_path.add_vertex(c)
             heap.push(new_path)
 
+
 def gs_expand(heap):
     path = heap.pop()
     nodes = path.get_vertexes()

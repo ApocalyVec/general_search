@@ -50,6 +50,12 @@ class Path:
         else:
             return None
 
+    def get_end_id(self):
+        if self.vertexes:
+            return self.get_end().id
+        else:
+            return None
+
     def get_end_heuristic(self):
         if self.vertexes:
             return self.get_end().get_heuristic()
