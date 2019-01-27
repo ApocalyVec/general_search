@@ -11,7 +11,7 @@ from Expand import dfs_expand, bfs_expand, dls_expand, ucs_expand, gs_expand, as
 depth = 0 # depth limit used by IDDFS
 
 
-def general_search(graph, search_method, d):
+def General_Search(graph, search_method, d):
 
     start = time.time()
 
@@ -89,7 +89,7 @@ def general_search(graph, search_method, d):
         if queue.isEmpty() or heap.isEmpty():
             if search_method == 'IDDFS':
                 d = d + 1
-                general_search(g, 'IDDFS', d)  # use recursion for IDDFS
+                General_Search(g, 'IDDFS', d)  # use recursion for IDDFS
 
             # print("No solution, terminated")
             return
@@ -126,13 +126,13 @@ g.print_all_vertices()
 input("Press Enter to continue...")
 
 
-general_search(g, 'DFS', depth)
-general_search(g, 'BFS', depth)
-general_search(g, 'DLS', depth)  # change the depth limitation with dls_expand call, dl = 2
-general_search(g, 'IDDFS', depth)
-general_search(g, 'UCS', depth)
-general_search(g, 'GS', depth)
-general_search(g, 'AS', depth)
+General_Search(g, 'DFS', depth)
+General_Search(g, 'BFS', depth)
+General_Search(g, 'DLS', depth)  # change the depth limitation with dls_expand call, dl = 2
+General_Search(g, 'IDDFS', depth)
+General_Search(g, 'UCS', depth)
+General_Search(g, 'GS', depth)
+General_Search(g, 'AS', depth)
 
 
 # p1 = Path()

@@ -28,6 +28,7 @@ class Heap:
     def push_a_star(self, x):  # sort by heuristic plus cost, used by AS
         self.ordered_path.append(x)
         self.ordered_path.sort(key=lambda x: (x.get_end_heuristic() + x.get_cost()), reverse=False)
+        self.as_delete_path()
         self.as_sort_same_value()
 
     def pop(self):
@@ -103,3 +104,16 @@ class Heap:
                         if first.get_vertexes_id_string() > second.get_vertexes_id_string():
                             a, b = index, index + 1
                             self.ordered_path[b], self.ordered_path[a] = self.ordered_path[a], self.ordered_path[b]
+
+    def as_delete_path(self):
+        for p in self.ordered_path:
+            for other in self.ordered_path:
+                if p != other:
+
+                    if p.get_end() == other.get_end():  # the two paths have the same end
+                        if p.get_end_heuristic() + p.cost > other.get_end_heuristic() + other.cost:
+                            self.ordered_path.remove(p)
+                            return
+                        elif p.get_end_heuristic() + p.cost < other.get_end_heuristic() + other.cost:
+                            self.ordered_path.remove(other)
+                            return
