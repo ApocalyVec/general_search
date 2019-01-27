@@ -15,15 +15,21 @@ class Heap:
     def isEmpty(self):
         return len(self.ordered_path) == 0
 
-    def push(self, x):  # sort by the path cost
+    def push(self, x):  # sort by the path cost, used by UCS
         self.ordered_path.append(x)
         self.ordered_path.sort(key=lambda x: x.cost, reverse=False)
 
-    def push_heuristic(self, x):  # sort by heuristic of the end node, used by Greedy search
+        for index in range(len(self.ordered_path)-1):  # sort path with the same cost alphabetically
+            if self.ordered_path[index].cost == self.ordered_path[index+1].cost:
+                if self.ordered_path[index].get_end_id() > self.ordered_path[index + 1].get_end_id():
+                    a, b = index, index + 1
+                    self.ordered_path[b], self.ordered_path[a] = self.ordered_path[a], self.ordered_path[b]
+
+    def push_heuristic(self, x):  # sort by heuristic of the end node, used by GS
         self.ordered_path.append(x)
         self.ordered_path.sort(key=lambda x: x.get_end_heuristic(), reverse=False)
 
-    def push_a_star(self, x):  # sort by heuristic plus cost, used by A* search
+    def push_a_star(self, x):  # sort by heuristic plus cost, used by AS
         self.ordered_path.append(x)
         self.ordered_path.sort(key=lambda x: (x.get_end_heuristic() + x.get_cost()), reverse=False)
 
