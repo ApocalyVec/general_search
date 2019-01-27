@@ -21,13 +21,28 @@ class Path:
     def __eq__(self, other):
         return self.cost == other.cost
 
+    def get_vertexes(self):
+        return list(self.vertexes)
+
+    def get_start(self):
+        if self.vertexes:
+            return self.vertexes[-1]
+        else:
+            return None
+
+    def get_end(self):
+        if self.vertexes:
+            return self.vertexes[0]
+        else:
+            return None
+
     def add_vertex(self, x):
         #  add the cost
 
         # print(self.vertexes[-1])
 
         if len(self.vertexes) >= 1:
-            self.cost = self.cost + float(self.vertexes[-1].get_weight(x))
+            self.cost = self.cost + float(self.get_end().get_weight(x))
 
-        self.vertexes.append(x)
+        self.vertexes.appendleft(x)
 

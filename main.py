@@ -6,9 +6,10 @@ from Graph import Graph
 from Queue import Queue
 from Path import Path
 from Heap import Heap
-from Expand import dfs_expand, bfs_expand, dls_expand
+from Expand import dfs_expand, bfs_expand, dls_expand, ucs_expand
 
 depth = 0 # depth limit used by IDDFS
+
 
 def general_search(graph, search_method, d):
 
@@ -19,44 +20,61 @@ def general_search(graph, search_method, d):
         print("L = " + str(d) + "     Expanded     Queue")
     else:
         print("         Expanded     Queue")
-    queue = Queue()
+
     root = g.get_vertex('S')
     destination = g.get_vertex('G')
 
+    # queue for unweighted search
+    queue = Queue()
     queue.push([root])
 
+    #heap for weighted search
+    path = Path()
+    path.add_vertex(root)
+    heap = Heap()
+    heap.push(path)
 
     while 1:
+
         nodes = queue.get_left_peek()  # get the left peek without popping
+        if search_method == 'UCS':
+            nodes = heap.get_left_peek().get_vertexes()
 
         # use the given search method
         # DFS
         if search_method == 'DFS':
             print('         ' + nodes[0].id, end='              ')
             print(queue)
-            dfs_expand(graph, queue)
+            dfs_expand(queue)
         # BFS
         elif search_method == 'BFS':
             print('         ' + nodes[0].id, end='              ')
             print(queue)
-            bfs_expand(graph, queue)
+            bfs_expand(queue)
 
         elif search_method == "DLS":
             print('         ' + nodes[0].id, end='              ')
             print(queue)
-            dls_expand(graph, queue, 2)
+            dls_expand(queue, 2)
 
         elif search_method == 'IDDFS':
             print('         ' + nodes[0].id, end='              ')
             print(queue)
-            dls_expand(graph, queue, d)
+            dls_expand(queue, d)
 
+        elif search_method == 'UCS':
+            print('         ' + nodes[0].id, end='              ')
+            print(heap)
+            ucs_expand(heap)
+
+        # must be in this order: check destination before searching
+        # otherwise IDDFS won't work
         if nodes[0] == destination:
             end = time.time()
             print("         goal reached! " + "Time taken by " + search_method + " is", end - start, "seconds")
             return nodes[0]
 
-        if queue.isEmpty():
+        if queue.isEmpty() or heap.isEmpty():
             if search_method == 'IDDFS':
                 d = d + 1
                 general_search(g, 'IDDFS', d)  # use recursion for IDDFS
@@ -100,6 +118,7 @@ input("Press Enter to continue...")
 # general_search(g, 'BFS', depth)
 # general_search(g, 'DLS', depth)  # change the depth limitation with dls_expand call, dl = 2
 # general_search(g, 'IDDFS', depth)
+general_search(g, 'UCS', depth)
 
 
 # p1 = Path()

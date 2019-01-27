@@ -38,6 +38,10 @@ class Vertex:
     def get_weight(self, other_vertex):
         # print("connection is: ", end='')
         # print(self.connection)
+
+        # print("this is vertex: ", self.id)
+        # print("other vertex is: ", other_vertex.id)
+
         # print("other vertex is: ", end='')
         # print(hex(id(other_vertex)))
         return self.connection[other_vertex]  # get the value designated by the other vertex as a key

@@ -20,3 +20,9 @@ class Heap:
         removed = self.ordered_path[0]
         self.ordered_path.remove(removed)
         return removed
+
+    def get_left_peek(self):
+        if self.ordered_path:
+            return self.ordered_path[0]
+        else:
+            return None

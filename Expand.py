@@ -1,4 +1,7 @@
-def dfs_expand(graph, queue):
+import copy
+from Path import Path
+
+def dfs_expand(queue):
     nodes = queue.pop()
     # if nodes[0] not in visited:  # do nothing is n is already visited
         # print("visiting: ")
@@ -27,7 +30,7 @@ def dfs_expand(graph, queue):
                 queue.push(temp)
 
 
-def dls_expand(graph, queue, dl):  # dl = depth limit, a integer number
+def dls_expand(queue, dl):  # dl = depth limit, a integer number
     nodes = queue.pop()
 
     if len(nodes) > dl:  # return if the depth limit is hit
@@ -45,7 +48,7 @@ def dls_expand(graph, queue, dl):  # dl = depth limit, a integer number
             queue.push(temp)
 
 
-def bfs_expand(graph, queue):
+def bfs_expand(queue):
     nodes = queue.pop()
     node_to_be_expanded = nodes[0]
 
@@ -58,7 +61,7 @@ def bfs_expand(graph, queue):
             # print(i)
 
     for c in connections:
-        if c not in nodes:
+        if c not in nodes:  # because node in 'nodes' are 'visited'
             temp = nodes[:]  # do not apply the insert change to the original varible
             temp.insert(0, c)
             queue.push_right(temp)
@@ -67,6 +70,37 @@ def bfs_expand(graph, queue):
         # print("Queue after pushing is: ")
             # print(queue)
 
+
+def ucs_expand(heap):
+    path = heap.pop()
+    nodes = path.get_vertexes()
+    nodes.reverse()  # must reverse for the new path to work
+    node_to_be_expanded = path.get_end()
+
+    connections = node_to_be_expanded.get_connection()
+    connections = list(connections)
+    connections.sort(key=lambda x: x.id, reverse=False)
+
+    for c in connections:
+        if c not in nodes:  # because node in 'nodes' are 'visited'
+
+            new_path = Path()
+
+            for n in nodes:
+                # print("adding to new path: " + n.id)
+                new_path.add_vertex(n)
+
+            # temp = copy.copy(path)  # do not apply the insert change to the original varible
+
+            # print("Connection is: ", end="")
+            # for i in connections:
+            #     print(i.id + ", ", end="")
+            # print()
+            # print("New path is: ", new_path)
+            # print("node is: " + c.id)
+
+            new_path.add_vertex(c)
+            heap.push(new_path)
 
 # def iddfs_expand(graph, queue, depth):
 #     nodes = queue.pop()
