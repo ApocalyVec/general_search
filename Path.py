@@ -7,17 +7,17 @@ class Path:
         self.vertexes = collections.deque()
         self.cost = 0
 
-    def __str__(self):
-        return str(self.cost) + \
+    def __str__(self):  # used by UCS
+        return str(int(self.cost)) + \
                str([v.id for v in self.vertexes]).replace("'", "").replace("[", "<").replace("]", ">")
         # return str([str([i.id for i in x]).replace("[", "<").replace("]", ">").replace("'", "")
         #             for x in self.elements]).replace("'", "")
 
-    def str_heuristic(self):
+    def str_heuristic(self):  # used by GS
         return str(self.get_end_heuristic()) + \
                str([v.id for v in self.vertexes]).replace("'", "").replace("[", "<").replace("]", ">")
 
-    def str_a_star(self):
+    def str_a_star(self):  # used by AS
         return str(self.get_end_heuristic() + self.cost) + \
                str([v.id for v in self.vertexes]).replace("'", "").replace("[", "<").replace("]", ">")
 
@@ -33,6 +33,15 @@ class Path:
     def get_vertexes(self):
         rtn = list(self.vertexes)
         rtn.reverse()  # must reverse for the new path to work
+        return rtn
+
+    def get_vertexes_count(self):
+        return len(list(self.vertexes))
+
+    def get_vertexes_id_string(self):
+        rtn = ""
+        for v in self.get_vertexes():
+            rtn = rtn + v.id
         return rtn
 
     def get_cost(self):
