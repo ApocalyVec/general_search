@@ -51,7 +51,7 @@ class Graph:
         if vertex not in self.vertex_dic:
             raise RuntimeError('vertex with id: ' + vertex + " not found")
         else:
-            self.vertex_dic[vertex].heuristic = heuristic
+            self.vertex_dic[vertex].heuristic = float(heuristic)
 
     def print_all_vertices(self):
         for vertex in self:

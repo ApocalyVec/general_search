@@ -26,6 +26,9 @@ class Vertex:
     # def __setitem__(self, index, value):
     #     self.bricks.bricksId[index] = value
 
+    def get_heuristic(self):
+        return self.heuristic
+
     def get_id(self):
         return self.id
 

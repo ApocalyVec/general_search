@@ -6,7 +6,7 @@ from Graph import Graph
 from Queue import Queue
 from Path import Path
 from Heap import Heap
-from Expand import dfs_expand, bfs_expand, dls_expand, ucs_expand
+from Expand import dfs_expand, bfs_expand, dls_expand, ucs_expand, gs_expand
 
 depth = 0 # depth limit used by IDDFS
 
@@ -37,8 +37,9 @@ def general_search(graph, search_method, d):
     while 1:
 
         nodes = queue.get_left_peek()  # get the left peek without popping
-        if search_method == 'UCS':
+        if search_method == 'UCS' or 'GS':
             nodes = heap.get_left_peek().get_vertexes()
+            nodes.reverse()
 
         # use the given search method
         # DFS
@@ -66,6 +67,11 @@ def general_search(graph, search_method, d):
             print('         ' + nodes[0].id, end='              ')
             print(heap)
             ucs_expand(heap)
+
+        elif search_method == 'GS':
+            print('         ' + nodes[0].id, end='              ')
+            print(heap.str_heuristic())
+            gs_expand(heap)
 
         # must be in this order: check destination before searching
         # otherwise IDDFS won't work
@@ -118,7 +124,8 @@ input("Press Enter to continue...")
 # general_search(g, 'BFS', depth)
 # general_search(g, 'DLS', depth)  # change the depth limitation with dls_expand call, dl = 2
 # general_search(g, 'IDDFS', depth)
-general_search(g, 'UCS', depth)
+# general_search(g, 'UCS', depth)
+general_search(g, 'GS', depth)
 
 
 # p1 = Path()

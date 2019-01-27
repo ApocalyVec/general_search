@@ -1,4 +1,5 @@
 import collections
+import math
 
 
 class Path:
@@ -12,6 +13,10 @@ class Path:
         # return str([str([i.id for i in x]).replace("[", "<").replace("]", ">").replace("'", "")
         #             for x in self.elements]).replace("'", "")
 
+    def str_heuristic(self):
+        return str(self.get_end_heuristic()) + \
+               str([v.id for v in self.vertexes]).replace("'", "").replace("[", "<").replace("]", ">")
+
     def __lt__(self, other):
         return self.cost < other.cost
 
@@ -22,7 +27,9 @@ class Path:
         return self.cost == other.cost
 
     def get_vertexes(self):
-        return list(self.vertexes)
+        rtn = list(self.vertexes)
+        rtn.reverse()  # must reverse for the new path to work
+        return rtn
 
     def get_start(self):
         if self.vertexes:
@@ -35,6 +42,12 @@ class Path:
             return self.vertexes[0]
         else:
             return None
+
+    def get_end_heuristic(self):
+        if self.vertexes:
+            return self.get_end().get_heuristic()
+        else:
+            return math.inf
 
     def add_vertex(self, x):
         #  add the cost

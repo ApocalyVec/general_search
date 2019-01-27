@@ -33,3 +33,4 @@ class Queue:
 
     def get_right_peek(self):
         return self.elements[-1]
+

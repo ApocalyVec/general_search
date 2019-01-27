@@ -74,7 +74,7 @@ def bfs_expand(queue):
 def ucs_expand(heap):
     path = heap.pop()
     nodes = path.get_vertexes()
-    nodes.reverse()  # must reverse for the new path to work
+    # nodes.reverse()  # must reverse for the new path to work
     node_to_be_expanded = path.get_end()
 
     connections = node_to_be_expanded.get_connection()
@@ -90,17 +90,31 @@ def ucs_expand(heap):
                 # print("adding to new path: " + n.id)
                 new_path.add_vertex(n)
 
-            # temp = copy.copy(path)  # do not apply the insert change to the original varible
-
-            # print("Connection is: ", end="")
-            # for i in connections:
-            #     print(i.id + ", ", end="")
-            # print()
-            # print("New path is: ", new_path)
-            # print("node is: " + c.id)
-
             new_path.add_vertex(c)
             heap.push(new_path)
+
+def gs_expand(heap):
+    path = heap.pop()
+    nodes = path.get_vertexes()
+    # nodes.reverse()  # must reverse for the new path to work
+    node_to_be_expanded = path.get_end()
+
+    connections = node_to_be_expanded.get_connection()
+    connections = list(connections)
+    connections.sort(key=lambda x: x.id, reverse=False)
+
+    for c in connections:
+        if c not in nodes:  # because node in 'nodes' are 'visited'
+
+            new_path = Path()
+
+            for n in nodes:
+                # print("adding to new path: " + n.id)
+                new_path.add_vertex(n)
+
+            new_path.add_vertex(c)
+            heap.push_heuristic(new_path)
+
 
 # def iddfs_expand(graph, queue, depth):
 #     nodes = queue.pop()
