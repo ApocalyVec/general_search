@@ -36,6 +36,7 @@ class Vertex:
         self.connection[vertex] = weight  # using the neighbor vertex as a key and the weight as its value
 
     def get_connection(self):
+        # print(list(self.connection.keys()))
         return self.connection.keys()
 
     def get_weight(self, other_vertex):

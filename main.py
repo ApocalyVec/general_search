@@ -6,7 +6,7 @@ from Graph import Graph
 from Queue import Queue
 from Path import Path
 from Heap import Heap
-from Expand import dfs_expand, bfs_expand, dls_expand, ucs_expand, gs_expand, as_expand
+from Expand import dfs_expand, bfs_expand, dls_expand, ucs_expand, gs_expand, as_expand, hc_expand
 
 depth = 0 # depth limit used by IDDFS
 
@@ -36,7 +36,8 @@ def General_Search(graph, search_method, d):
 
     while 1:
 
-        if search_method == 'UCS' or search_method == 'GS' or search_method == 'AS':
+        if search_method == 'UCS' or search_method == 'GS' or search_method == 'AS'\
+                or search_method == 'HC' or search_method == 'BMS':
             nodes = heap.get_left_peek().get_vertexes()
             nodes.reverse()
         else:
@@ -78,6 +79,29 @@ def General_Search(graph, search_method, d):
             print('         ' + nodes[0].id, end='              ')
             print(heap.str_a_star())
             as_expand(heap)
+
+        elif search_method == 'HC':
+            # if len(nodes) > 1:
+            #     unexplored_children = list(nodes[0].get_connection())
+            #     unexplored_children.remove(nodes[1])
+            #
+            #     # print(unexplored_children)
+            #
+            #     if len(unexplored_children) != 0: # there is unvisited node(s) from this node
+            #         print('         ' + nodes[0].id, end='              ')
+            #         print(heap.str_heuristic())  # use the same on as the Greedy Search
+            #
+            #         hc_expand(heap)
+            #
+            # else:
+            print('         ' + nodes[0].id, end='              ')
+            print(heap.str_heuristic())  # use the same on as the Greedy Search
+
+            hc_expand(heap)
+
+        elif search_method == 'BMS':
+            print('a')
+
 
         # must be in this order: check destination before searching
         # otherwise IDDFS won't work
@@ -133,6 +157,8 @@ General_Search(g, 'IDDFS', depth)
 General_Search(g, 'UCS', depth)
 General_Search(g, 'GS', depth)
 General_Search(g, 'AS', depth)
+General_Search(g, 'HC', depth)
+General_Search(g, 'BMS', depth)
 
 
 # p1 = Path()

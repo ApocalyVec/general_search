@@ -1,3 +1,6 @@
+import copy
+
+
 class Heap:
     def __init__(self):
         self.ordered_path = []  # path objects
@@ -30,6 +33,32 @@ class Heap:
         self.ordered_path.sort(key=lambda x: (x.get_end_heuristic() + x.get_cost()), reverse=False)
         self.as_delete_path()
         self.as_sort_same_value()
+
+    def push_hc(self, x):  # used by HC
+
+        self.ordered_path.insert(0, x)
+        # print("Pushing: " + x.str_heuristic())
+
+        # self.ordered_path.append(x)
+
+        # path_copy = copy.copy(self.ordered_path)  # make a shallow copy of ordered path
+        # path_copy.sort(key=lambda x: x.get_end_heuristic(), reverse=False)
+
+        # first = path_copy[0]
+        # print("First is: " + first.str_heuristic())
+        # print(first)
+        # self.ordered_path.remove(first)
+
+        # self.ordered_path.insert(0, first)
+
+    def hc_sort(self):
+        path_copy = copy.copy(self.ordered_path)  # make a shallow copy of ordered path
+        path_copy.sort(key=lambda x: x.get_end_heuristic(), reverse=False)
+
+        first = path_copy[0]
+
+        self.ordered_path.remove(first)
+        self.ordered_path.insert(0, first)
 
     def pop(self):
         removed = self.ordered_path[0]
