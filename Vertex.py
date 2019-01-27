@@ -18,7 +18,7 @@ class Vertex:
                ' Connections: ' + str([x.id for x in self.connection])
 
     def __gt__(self, other):
-        return self.id > self.id
+        return self.id > other.id
 
     # def __getitem__(self, index):
     #     return self.id[index]
@@ -36,4 +36,8 @@ class Vertex:
         return self.connection.keys()
 
     def get_weight(self, other_vertex):
+        # print("connection is: ", end='')
+        # print(self.connection)
+        # print("other vertex is: ", end='')
+        # print(hex(id(other_vertex)))
         return self.connection[other_vertex]  # get the value designated by the other vertex as a key

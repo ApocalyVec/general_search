@@ -57,5 +57,4 @@ class Graph:
         for vertex in self:
             print(vertex)
 
-    # all the serach methods
 

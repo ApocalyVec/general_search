@@ -4,6 +4,8 @@ import time
 
 from Graph import Graph
 from Queue import Queue
+from Path import Path
+from Heap import Heap
 from Expand import dfs_expand, bfs_expand, dls_expand
 
 depth = 0 # depth limit used by IDDFS
@@ -78,11 +80,11 @@ with open(filePath) as input_file:
             # print("start reading of section 2")
         elif current_section == 1:
             arguments = line.split(" ")
-            g.add_edge(arguments[0], arguments[1], arguments[2])
+            g.add_edge(arguments[0], arguments[1], arguments[2].rstrip())  # use strip to remove any newline characters
             # print("section 1: " + line)
         elif current_section == 2:
             arguments = line.split(" ")
-            g.set_heuristic_for_vertex(arguments[0], arguments[1])
+            g.set_heuristic_for_vertex(arguments[0], arguments[1].rstrip())
             # print("section 2: " + line)
 
 # IMPORTANT: set the ending destination's heuristic to be 0
@@ -94,13 +96,61 @@ g.print_all_vertices()
 input("Press Enter to continue...")
 
 
-general_search(g, 'DFS', depth)
-general_search(g, 'BFS', depth)
-general_search(g, 'DLS', depth)  # change the depth limitation with dls_expand call, dl = 2
-general_search(g, 'IDDFS', depth)
+# general_search(g, 'DFS', depth)
+# general_search(g, 'BFS', depth)
+# general_search(g, 'DLS', depth)  # change the depth limitation with dls_expand call, dl = 2
+# general_search(g, 'IDDFS', depth)
 
-# g.add_vertex('a')
-# g.add_edge('a', 'b', 7)
-# g.set_heuristic_for_vertex('a', 10)
+
+# p1 = Path()
+# p1.add_vertex(g.get_vertex('S'))
+# p1.add_vertex(g.get_vertex('A'))
+# # p1.add_vertex(g.get_vertex('B'))
+# print(p1)
+#
+#
+# p2 = Path()
+# p2.add_vertex(g.get_vertex('S'))
+# p2.add_vertex(g.get_vertex('A'))
+# p2.add_vertex(g.get_vertex('D'))
+# p2.add_vertex(g.get_vertex('E'))
+# print(p2)
+#
+# p3 = Path()
+# p3.add_vertex(g.get_vertex('S'))
+# p3.add_vertex(g.get_vertex('A'))
+# p3.add_vertex(g.get_vertex('D'))
+# p3.add_vertex(g.get_vertex('E'))
+# p3.add_vertex(g.get_vertex('F'))
+# p3.add_vertex(g.get_vertex('G'))
+# print(p3)
+#
+# p3 = Path()
+# p3.add_vertex(g.get_vertex('S'))
+# p3.add_vertex(g.get_vertex('A'))
+# p3.add_vertex(g.get_vertex('D'))
+# p3.add_vertex(g.get_vertex('E'))
+# p3.add_vertex(g.get_vertex('F'))
+# p3.add_vertex(g.get_vertex('G'))
+# print(p3)
+#
+# h = Heap()
+#
+# h.push(p3)
+#
+# h.push(p2)
+#
+# h.push(p1)
+#
+# print(h)
+#
+# print('Popping: ')
+# while not h.isEmpty():
+#     print(h.pop())
+
+# w = g.get_vertex('A').get_weight(g.get_vertex('S'))
+
+
+
 
 
