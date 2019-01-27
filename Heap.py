@@ -6,8 +6,11 @@ class Heap:
 
         return str([str(p) for p in self.ordered_path]).replace("'", "")
 
-    def str_heuristic(self):
+    def str_heuristic(self):  # used by Greedy search
         return str([str(p.str_heuristic()) for p in self.ordered_path]).replace("'", "")
+
+    def str_a_star(self):  # used by A* search
+        return str([str(p.str_a_star()) for p in self.ordered_path]).replace("'", "")
 
     def isEmpty(self):
         return len(self.ordered_path) == 0
@@ -16,9 +19,13 @@ class Heap:
         self.ordered_path.append(x)
         self.ordered_path.sort(key=lambda x: x.cost, reverse=False)
 
-    def push_heuristic(self, x):  # sort by heuristic of the end node
+    def push_heuristic(self, x):  # sort by heuristic of the end node, used by Greedy search
         self.ordered_path.append(x)
         self.ordered_path.sort(key=lambda x: x.get_end_heuristic(), reverse=False)
+
+    def push_a_star(self, x):  # sort by heuristic plus cost, used by A* search
+        self.ordered_path.append(x)
+        self.ordered_path.sort(key=lambda x: (x.get_end_heuristic() + x.get_cost()), reverse=False)
 
     def pop(self):
         removed = self.ordered_path[0]

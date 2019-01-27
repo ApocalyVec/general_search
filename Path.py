@@ -17,6 +17,10 @@ class Path:
         return str(self.get_end_heuristic()) + \
                str([v.id for v in self.vertexes]).replace("'", "").replace("[", "<").replace("]", ">")
 
+    def str_a_star(self):
+        return str(self.get_end_heuristic() + self.cost) + \
+               str([v.id for v in self.vertexes]).replace("'", "").replace("[", "<").replace("]", ">")
+
     def __lt__(self, other):
         return self.cost < other.cost
 
@@ -30,6 +34,9 @@ class Path:
         rtn = list(self.vertexes)
         rtn.reverse()  # must reverse for the new path to work
         return rtn
+
+    def get_cost(self):
+        return self.cost
 
     def get_start(self):
         if self.vertexes:

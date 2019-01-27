@@ -116,6 +116,29 @@ def gs_expand(heap):
             heap.push_heuristic(new_path)
 
 
+def as_expand(heap):
+    path = heap.pop()
+    nodes = path.get_vertexes()
+    # nodes.reverse()  # must reverse for the new path to work
+    node_to_be_expanded = path.get_end()
+
+    connections = node_to_be_expanded.get_connection()
+    connections = list(connections)
+    connections.sort(key=lambda x: x.id, reverse=False)
+
+    for c in connections:
+        if c not in nodes:  # because node in 'nodes' are 'visited'
+
+            new_path = Path()
+
+            for n in nodes:
+                # print("adding to new path: " + n.id)
+                new_path.add_vertex(n)
+
+            new_path.add_vertex(c)
+            heap.push_a_star(new_path)
+
+
 # def iddfs_expand(graph, queue, depth):
 #     nodes = queue.pop()
 #
