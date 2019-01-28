@@ -6,7 +6,7 @@ from Graph import Graph
 from Queue import Queue
 from Path import Path
 from Heap import Heap
-from Expand import dfs_expand, bfs_expand, dls_expand, ucs_expand, gs_expand, as_expand, hc_expand
+from Expand import dfs_expand, bfs_expand, dls_expand, ucs_expand, gs_expand, as_expand, hc_expand, bms_expand
 
 depth = 0 # depth limit used by IDDFS
 
@@ -43,40 +43,34 @@ def General_Search(graph, search_method, d):
         else:
             nodes = queue.get_left_peek()  # get the left peek without popping
 
+        print('         ' + nodes[0].id, end='              ')
         # use the given search method
         # DFS
         if search_method == 'DFS':
-            print('         ' + nodes[0].id, end='              ')
             print(queue)
             dfs_expand(queue)
         # BFS
         elif search_method == 'BFS':
-            print('         ' + nodes[0].id, end='              ')
             print(queue)
             bfs_expand(queue)
 
         elif search_method == "DLS":
-            print('         ' + nodes[0].id, end='              ')
             print(queue)
             dls_expand(queue, 2)
 
         elif search_method == 'IDDFS':
-            print('         ' + nodes[0].id, end='              ')
             print(queue)
             dls_expand(queue, d)
 
         elif search_method == 'UCS':
-            print('         ' + nodes[0].id, end='              ')
             print(heap)
             ucs_expand(heap)
 
         elif search_method == 'GS':
-            print('         ' + nodes[0].id, end='              ')
             print(heap.str_heuristic())
             gs_expand(heap)
 
         elif search_method == 'AS':
-            print('         ' + nodes[0].id, end='              ')
             print(heap.str_a_star())
             as_expand(heap)
 
@@ -94,16 +88,17 @@ def General_Search(graph, search_method, d):
             #         hc_expand(heap)
             #
             # else:
-            print('         ' + nodes[0].id, end='              ')
             print(heap.str_heuristic())  # use the same on as the Greedy Search
 
             hc_expand(heap)
 
         elif search_method == 'BMS':
-            print('a')
+
+            print(heap.str_heuristic())  # use the same on as the Greedy Search
+            bms_expand(heap, 2)
 
 
-        # must be in this order: check destination before searching
+        # the if's must be in this order: check destination before searching
         # otherwise IDDFS won't work
         if nodes[0] == destination:
             end = time.time()
@@ -158,7 +153,7 @@ General_Search(g, 'UCS', depth)
 General_Search(g, 'GS', depth)
 General_Search(g, 'AS', depth)
 General_Search(g, 'HC', depth)
-General_Search(g, 'BMS', depth)
+General_Search(g, 'BMS', depth)  # uses beam_width = 2
 
 
 # p1 = Path()

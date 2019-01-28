@@ -143,8 +143,6 @@ def as_expand(heap):
 
 def hc_expand(heap):
 
-
-
     path = heap.pop()
     nodes = path.get_vertexes()
     # nodes.reverse()  # must reverse for the new path to work
@@ -167,6 +165,40 @@ def hc_expand(heap):
             heap.push_hc(new_path)
 
     heap.hc_sort()  # find whether path to explore next after pushing all children
+
+
+def bms_expand(heap, beam_width):
+
+
+
+    path = heap.pop()
+
+    if heap.size() > beam_width:
+        print("Before trimming: "+ heap.str_heuristic())
+        heap.heuristic_sort()
+        heap.trim(beam_width)
+        print("After trimming: " + heap.str_heuristic())
+
+    nodes = path.get_vertexes()
+    # nodes.reverse()  # must reverse for the new path to work
+    node_to_be_expanded = path.get_end()
+
+    connections = node_to_be_expanded.get_connection()
+    connections = list(connections)
+    connections.sort(key=lambda x: x.id, reverse=False)
+
+    for c in connections:
+        if c not in nodes:  # because node in 'nodes' are 'visited'
+
+            new_path = Path()
+
+            for n in nodes:
+                # print("adding to new path: " + n.id)
+                new_path.add_vertex(n)
+
+            new_path.add_vertex(c)
+            heap.push_bms(new_path)  # use the same push as HC (simple insertion)
+
 
 
 # def iddfs_expand(graph, queue, depth):

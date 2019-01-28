@@ -18,6 +18,20 @@ class Heap:
     def isEmpty(self):
         return len(self.ordered_path) == 0
 
+    def size(self):
+        return len(self.ordered_path)
+
+    def remove(self, x):
+        self.ordered_path.remove(x)
+
+    def trim(self, value):
+        if self.size() > value:
+            for p in self.ordered_path:
+                if self.ordered_path.index(p) > value-2:
+                    # print("Trimming: " + p.str_heuristic())
+                    self.ordered_path.remove(p)
+
+
     def push(self, x):  # sort by the path cost, used by UCS
         self.ordered_path.append(x)
         self.ordered_path.sort(key=lambda x: x.cost, reverse=False)
@@ -34,7 +48,7 @@ class Heap:
         self.as_delete_path()
         self.as_sort_same_value()
 
-    def push_hc(self, x):  # used by HC
+    def push_hc(self, x):  # used by HC, and BMS
 
         self.ordered_path.insert(0, x)
         # print("Pushing: " + x.str_heuristic())
@@ -51,6 +65,9 @@ class Heap:
 
         # self.ordered_path.insert(0, first)
 
+    def push_bms(self, x):
+        self.ordered_path.append(x)
+
     def hc_sort(self):
         path_copy = copy.copy(self.ordered_path)  # make a shallow copy of ordered path
         path_copy.sort(key=lambda x: x.get_end_heuristic(), reverse=False)
@@ -59,6 +76,10 @@ class Heap:
 
         self.ordered_path.remove(first)
         self.ordered_path.insert(0, first)
+
+    def heuristic_sort(self):  # used by BMS
+        self.ordered_path.sort(key=lambda x: x.get_end_heuristic(), reverse=False)
+        self.gs_sort_same_value()
 
     def pop(self):
         removed = self.ordered_path[0]
