@@ -25,9 +25,14 @@ class Heap:
         self.ordered_path.remove(x)
 
     def trim(self, value):
+
         if self.size() > value:
-            for p in self.ordered_path:
-                if self.ordered_path.index(p) > value-2:
+
+            path_copy = copy.copy(self.ordered_path)  # make a shallow copy of ordered path
+            path_copy.sort(key=lambda x: x.get_end_heuristic(), reverse=False)
+
+            for p in path_copy:
+                if path_copy.index(p) > value-1:
                     # print("Trimming: " + p.str_heuristic())
                     self.ordered_path.remove(p)
 

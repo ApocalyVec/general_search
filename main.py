@@ -34,6 +34,8 @@ def General_Search(graph, search_method, d):
     heap = Heap()
     heap.push(path)
 
+    visited = []  # visited used by BMS
+
     while 1:
 
         if search_method == 'UCS' or search_method == 'GS' or search_method == 'AS'\
@@ -93,9 +95,9 @@ def General_Search(graph, search_method, d):
             hc_expand(heap)
 
         elif search_method == 'BMS':
-
+            visited.append(nodes[0])
             print(heap.str_heuristic())  # use the same on as the Greedy Search
-            bms_expand(heap, 2)
+            bms_expand(heap, 2, visited)
 
 
         # the if's must be in this order: check destination before searching

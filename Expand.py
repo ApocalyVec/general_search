@@ -167,17 +167,20 @@ def hc_expand(heap):
     heap.hc_sort()  # find whether path to explore next after pushing all children
 
 
-def bms_expand(heap, beam_width):
+def bms_expand(heap, beam_width, visited):
 
 
+    if heap.size() > beam_width:
+        # print("Before trimming: "+ heap.str_heuristic())
+
+        # heap.heuristic_sort()
+        heap.trim(beam_width)
+
+        # print("After trimming: " + heap.str_heuristic())
 
     path = heap.pop()
 
-    if heap.size() > beam_width:
-        print("Before trimming: "+ heap.str_heuristic())
-        heap.heuristic_sort()
-        heap.trim(beam_width)
-        print("After trimming: " + heap.str_heuristic())
+
 
     nodes = path.get_vertexes()
     # nodes.reverse()  # must reverse for the new path to work
@@ -188,7 +191,7 @@ def bms_expand(heap, beam_width):
     connections.sort(key=lambda x: x.id, reverse=False)
 
     for c in connections:
-        if c not in nodes:  # because node in 'nodes' are 'visited'
+        if c not in nodes and c not in visited:  # because node in 'nodes' are 'visited'
 
             new_path = Path()
 

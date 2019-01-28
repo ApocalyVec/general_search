@@ -1,37 +1,18 @@
 CS534 AI Project 1 (search methods)
 
-TO COMPILE THE CODE:
-1. MAKE SURE THE SYSTEM HAVE Python 3.6 INSTALLED
-1. navigate to the project directory
-2. use " make " to compile the code
-
 TO RUN THE CODE:
-  ./search graph.txt ALL
-
-  The format is ./search <graph_file_txt>  <search_method>
-
-	There are nine search algorithms:
-		DFS (Depth First Search)
-		BFS (Breadth First Search)
-		DLS (Depth Limited Search)
-		IDS (Iterative Deepening Search)
-		UCS (Uniform Cost Search)
-		GS  (Greedy Search)
-		ASTAR (A* Search)
-		HCS (Hill Climbing Search)
-		BS  (Beam Search)
-
-	In order to run all searches, enter 'ALL' for <search algorithm>
-
-	Examples:
-	./search graph.txt DFS
-
-   ./search graph.txt ALL
-
-
+1. MAKE SURE THE SYSTEM HAVE Python 3.6 INSTALLED
+2. make sure that Expand.py, Graph,py, Heap.py, main.py, Path.py, Queue.py, Vertex.py are all in the project folder
+3. type 'python main.py' in commandline to run
+4. The program will ask user to provide the path to the graph file
+5. Enter the graph file path, hit enter
+6. The program reads the file, and show the loaded graph
+7. Press enter to continue
+8. All search methods run
 
 
 Sample output for graph.txt
+Sample output for second_graph.txt
 
   Depth First Search
   Expanded	Queue
