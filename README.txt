@@ -3,7 +3,7 @@ CS534 AI Project 1 (search methods)
 TO RUN THE CODE:
 1. MAKE SURE THE SYSTEM HAVE Python 3.6 INSTALLED
 2. make sure that Expand.py, Graph,py, Heap.py, main.py, Path.py, Queue.py, Vertex.py are all in the project folder
-3. type 'python main.py' in commandline to run
+3. type 'python main.py' or 'python3.6 main.py' in commandline to run
 4. The program will ask user to provide the path to the graph file
 5. Enter the graph file path, hit enter
 6. The program reads the file, and show the loaded graph
