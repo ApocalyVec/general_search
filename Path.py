@@ -17,8 +17,12 @@ class Path:
         return str(self.get_end_heuristic()) + \
                str([v.id for v in self.vertexes]).replace("'", "").replace("[", "<").replace("]", ">")
 
+    # def str_a_star(self):  # used by AS
+    #     return str(self.get_end_heuristic() + self.cost) + \
+    #            str([v.id for v in self.vertexes]).replace("'", "").replace("[", "<").replace("]", ">")
+
     def str_a_star(self):  # used by AS
-        return str(self.get_end_heuristic() + self.cost) + \
+        return 'f=' + str(int(self.get_end_heuristic())) + '+' + str(int(self.cost)) + '=' +str(int(self.get_end_heuristic() + self.cost)) + \
                str([v.id for v in self.vertexes]).replace("'", "").replace("[", "<").replace("]", ">")
 
     def __lt__(self, other):

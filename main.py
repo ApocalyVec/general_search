@@ -21,6 +21,9 @@ def General_Search(graph, search_method, d):
     else:
         print("         Expanded     Queue")
 
+    # root = g.get_vertex('S')
+    # destination = g.get_vertex('G')
+
     root = g.get_vertex('S')
     destination = g.get_vertex('G')
 
@@ -138,9 +141,12 @@ with open(filePath) as input_file:
             g.set_heuristic_for_vertex(arguments[0], arguments[1].rstrip())
             # print("section 2: " + line)
 
+
+
 # IMPORTANT: set the ending destination's heuristic to be 0
 # Also the starting node is always S and the destination is G
-g.set_heuristic_for_vertex('G', 0)
+
+# g.set_heuristic_for_vertex('G', 0)
 
 print("Graph read from file: ")
 g.print_all_vertices()
